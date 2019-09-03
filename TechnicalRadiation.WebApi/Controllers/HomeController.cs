@@ -3,19 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class HomeController : Controller
     {
         // GET api/home
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [Route("")]
+        // TODO: Change return value to NewsItemInputModel
+        public IActionResult GetAllNews()
         {
-            return new string[] { "value1", "value2" };
+            return Ok();
         }
 
         // GET api/home/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id:int}")]
         public ActionResult<string> Get(int id)
         {
             return "value";
