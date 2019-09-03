@@ -8,7 +8,7 @@ namespace TechnicalRadiation.WebApi.Controllers
     [ApiController]
     public class HomeController : Controller
     {
-        // GET api/home
+        // GET /api
         [HttpGet]
         [Route("")]
         // TODO: Change return value to NewsItemInputModel
@@ -18,12 +18,17 @@ namespace TechnicalRadiation.WebApi.Controllers
             return Ok(news);
         }
 
-        // GET api/home/5
+        // GET /api/5
         [HttpGet]
         [Route("{id:int}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            var singleNews = NewsService.NewsItems.Find(news => news.Id == id);
+            if(singleNews == null)
+            {
+                return NotFound();
+            }
+            return Ok(singleNews);
         }
 
         // POST api/home
