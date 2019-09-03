@@ -18,5 +18,11 @@ namespace TechnicalRadiation.Services
             var news = _newsRepo.GetAllNews();
             return news;
         }
+
+        public NewsItemDetailsDto GetNewsById(int id)
+        {
+            var news = _newsRepo.GetNewsById(id);
+            return news;
+        }
     }
 }

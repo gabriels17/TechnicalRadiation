@@ -30,7 +30,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         [Route("{id:int}")]
         public ActionResult<string> GetNewsById(int id)
         {
-            var news = _newsService.GetAllNews().Find(n => n.Id == id);
+            var news = _newsService.GetNewsById(id);
             if(news == null)
             {
                 return NotFound();
