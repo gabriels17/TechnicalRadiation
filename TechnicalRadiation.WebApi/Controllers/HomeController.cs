@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using TechnicalRadiation.Services;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -13,7 +14,8 @@ namespace TechnicalRadiation.WebApi.Controllers
         // TODO: Change return value to NewsItemInputModel
         public IActionResult GetAllNews()
         {
-            return Ok();
+            var news = NewsService.NewsItems.GetRange(0, 25);
+            return Ok(news);
         }
 
         // GET api/home/5
