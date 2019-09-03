@@ -6,15 +6,22 @@ namespace TechnicalRadiation.WebApi.Controllers
 {
     [Route("api/")]
     [ApiController]
-    public class HomeController : Controller
+    public class NewsController : Controller
     {
+        private NewsService _newsService;
+
+        public NewsController()
+        {
+            _newsService = new NewsService();
+        }
+
         // GET /api
         [HttpGet]
         [Route("")]
         // TODO: Change return value to NewsItemInputModel
         public IActionResult GetAllNews()
         {
-            var news = NewsService.NewsItems.GetRange(0, 25);
+            var news = _newsService.GetAllNews().GetRange(0, 25);
             return Ok(news);
         }
 
@@ -23,27 +30,27 @@ namespace TechnicalRadiation.WebApi.Controllers
         [Route("{id:int}")]
         public ActionResult<string> GetNewsById(int id)
         {
-            var singleNews = NewsService.NewsItems.Find(news => news.Id == id);
-            if(singleNews == null)
+            var news = _newsService.GetAllNews().Find(n => n.Id == id);
+            if(news == null)
             {
                 return NotFound();
             }
-            return Ok(singleNews);
+            return Ok(news);
         }
 
-        // POST api/home
+        // POST api/news
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/home/5
+        // PUT api/news/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/home/5
+        // DELETE api/news/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
