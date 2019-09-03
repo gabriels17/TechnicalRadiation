@@ -1,3 +1,4 @@
+using System;
 
 namespace TechnicalRadiation.Models.InputModels
 {
@@ -6,7 +7,8 @@ namespace TechnicalRadiation.Models.InputModels
         public string Title { get; set; }
         public string ImgSource { get; set; }
         public string ShortDescription { get; set; }
+        #nullable enable
         public string? LongDescription { get; set; }
-        public System.DateTime PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
     }
 }
