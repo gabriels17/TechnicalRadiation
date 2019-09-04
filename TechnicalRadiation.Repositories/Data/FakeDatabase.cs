@@ -41,9 +41,9 @@ public static class FakeDatabase {
     public static List<Category> Categories = new List<Category>()
     {
         new Category { Id = 1, Name = "Business", Slug = "business", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-        new Category { Id = 1, Name = "Sports", Slug = "sports", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-        new Category { Id = 1, Name = "Health", Slug = "health", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
-        new Category { Id = 1, Name = "Gadgets", Slug = "gadgets", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+        new Category { Id = 2, Name = "Sports", Slug = "sports", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Category { Id = 3, Name = "Health", Slug = "health", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Category { Id = 4, Name = "Gadgets", Slug = "gadgets", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
     };
 
     public static List<Author> Authors = new List<Author>()
@@ -53,5 +53,15 @@ public static class FakeDatabase {
         new Author { Id = 3, Name = "Patrick Rothfuss", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
         new Author { Id = 4, Name = "Terry Pratchett", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
         new Author { Id = 5, Name = "Enid Blyton", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }      
+    };
+
+    public static List<NewsItemCategories> NewsItemCategories = new List<NewsItemCategories>()
+    {
+        new NewsItemCategories { CategoryId = 1, NewsItemId = 1 },
+        new NewsItemCategories { CategoryId = 1, NewsItemId = 2 },
+        new NewsItemCategories { CategoryId = 2, NewsItemId = 3 },
+        new NewsItemCategories { CategoryId = 2, NewsItemId = 4 },
+        new NewsItemCategories { CategoryId = 2, NewsItemId = 5 },
+        new NewsItemCategories { CategoryId = 3, NewsItemId = 28 },
     };
 }
