@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using TechnicalRadiation.Models.Entities;
 using TechnicalRadiation.Services;
 
 namespace TechnicalRadiation.WebApi.Controllers
@@ -38,10 +40,16 @@ namespace TechnicalRadiation.WebApi.Controllers
             return Ok(news);
         }
 
-        // POST api/news
+        // POST /api
+        [Route("")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateNew([FromBody] NewsItem news)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Model is not properly formatted.");
+            }
+            return Created("Created", news);
         }
 
         // PUT api/news/5

@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TechnicalRadiation.Models.DTOs;
+using TechnicalRadiation.Models.Entities;
+using TechnicalRadiation.Models.InputModels;
 
 namespace TechnicalRadiation.Repositories
 {
@@ -32,6 +35,31 @@ namespace TechnicalRadiation.Repositories
                 PublishDate = n.PublishDate
             }).SingleOrDefault();
             return news;
+        }
+
+        public NewsItemDto CreateNews(NewsItemInputModel news)
+        {
+            var nextId = FakeDatabase.NewsItems.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;
+            var entity = new NewsItem
+            {
+                Id = nextId,
+                Title = news.Title,
+                ImgSource = news.ImgSource,
+                ShortDescription = news.ShortDescription,
+                LongDescription = news.LongDescription,
+                PublishDate = news.PublishDate,
+                ModifiedBy = "TechnicalRadiationAdmin",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+            FakeDatabase.NewsItems.Add(entity);
+            return new NewsItemDto
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                ImgSource = entity.ImgSource,
+                ShortDescription = entity.ShortDescription
+            };
         }
     }
 }
