@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Repositories;
+using TechnicalRadiation.Models.InputModels;
 
 namespace TechnicalRadiation.Services
 {
     public class NewsService
     {
-        private NewsRepo _newsRepo;  
+        private NewsRepo _newsRepo;
 
         public NewsService()
         {
@@ -23,6 +24,11 @@ namespace TechnicalRadiation.Services
         {
             var news = _newsRepo.GetNewsById(id);
             return news;
+        }
+
+        public void UpdateNewsById(NewsItemInputModel news, int id)
+        {
+            _newsRepo.UpdateNewsById(news, id);
         }
     }
 }
