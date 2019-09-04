@@ -16,7 +16,7 @@ namespace TechnicalRadiation.Repositories
             _mapper = mapper;
         }
 
-        public IEnumerable<AuthorDto> GetAllAuthors(bool containUnavailable)
+        public IEnumerable<AuthorDto> GetAllAuthors()
         {
             return _mapper.Map<IEnumerable<AuthorDto>>(FakeDatabase.Authors);
         }

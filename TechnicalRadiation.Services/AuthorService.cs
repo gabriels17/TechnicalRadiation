@@ -15,9 +15,10 @@ namespace TechnicalRadiation.Services
             _authorRepo = new AuthorRepo(mapper);
         }
 
-        public IEnumerable<AuthorDto> GetAllRentals(bool containUnavailable)
+        public IEnumerable<AuthorDto> GetAllAuthors()
         {
-            return _authorRepo.GetAllAuthors(containUnavailable);
+            var author = _authorRepo.GetAllAuthors();
+            return author;
         }
     }
 }
