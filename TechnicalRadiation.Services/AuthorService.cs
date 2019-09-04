@@ -20,5 +20,11 @@ namespace TechnicalRadiation.Services
             var author = _authorRepo.GetAllAuthors();
             return author;
         }
+
+        public AuthorDetailDto GetAuthorById(int id)
+        {
+            var author = _authorRepo.GetAuthorById(id);
+            return author;
+        }
     }
 }

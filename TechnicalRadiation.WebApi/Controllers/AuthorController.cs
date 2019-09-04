@@ -30,20 +30,20 @@ namespace TechnicalRadiation.WebApi.Controllers
             var authors = _authorService.GetAllAuthors();
             return Ok(authors);
         }
-/*
-        // GET /api/5
+
+        // GET /api/authors/5
         [HttpGet]
-        [Route("{id:int}", Name = "GetNewsById")]
-        public ActionResult<string> GetNewsById(int id)
+        [Route("authors/{id:int}", Name = "GetAuthorById")]
+        public ActionResult<string> GetAuthorById(int id)
         {
-            var news = _newsService.GetNewsById(id);
-            if (news == null)
+            var author = _authorService.GetAuthorById(id);
+            if (author == null)
             {
                 return NotFound();
             }
-            return Ok(news);
+            return Ok(author);
         }
-
+/*
         // POST /api
         [Route("")]
         [HttpPost]

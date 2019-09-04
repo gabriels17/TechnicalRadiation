@@ -21,5 +21,9 @@ namespace TechnicalRadiation.Repositories
             return _mapper.Map<IEnumerable<AuthorDto>>(FakeDatabase.Authors);
         }
 
+        public AuthorDetailDto GetAuthorById(int id)
+        {
+            return _mapper.Map<AuthorDetailDto>(FakeDatabase.Authors.Where(a => a.Id == id).SingleOrDefault());
+        }
     }
 }
