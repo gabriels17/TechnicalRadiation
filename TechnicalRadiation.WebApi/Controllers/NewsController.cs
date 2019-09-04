@@ -19,9 +19,9 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpGet]
         [Route("")]
         // TODO: Change return value to NewsItemInputModel
-        public IActionResult GetAllNews()
+        public IActionResult GetAllNews([FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            var news = _newsService.GetAllNews().GetRange(0, 25);
+            var news = _newsService.GetAllNews().GetRange(0, pageSize);
             return Ok(news);
         }
 
