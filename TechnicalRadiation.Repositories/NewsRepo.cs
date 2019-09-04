@@ -32,19 +32,20 @@ namespace TechnicalRadiation.Repositories
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
-            var news = (from n in FakeDatabase.NewsItems
-                        where n.Id == id
-                        select new NewsItemDetailsDto
-                        {
-                            Id = n.Id,
-                            Title = n.Title,
-                            ImgSource = n.ImgSource,
-                            ShortDescription = n.ShortDescription,
-                            LongDescription = n.LongDescription,
-                            PublishDate = n.PublishDate
-                        }).SingleOrDefault();
+            return _mapper.Map<NewsItemDetailsDto>(FakeDatabase.NewsItems.Where(n => n.Id == id).SingleOrDefault());
+            // var news = (from n in FakeDatabase.NewsItems
+            //             where n.Id == id
+            //             select new NewsItemDetailsDto
+            //             {
+            //                 Id = n.Id,
+            //                 Title = n.Title,
+            //                 ImgSource = n.ImgSource,
+            //                 ShortDescription = n.ShortDescription,
+            //                 LongDescription = n.LongDescription,
+            //                 PublishDate = n.PublishDate
+            //             }).SingleOrDefault();
 
-            return news;
+            // return news;
         }
         public NewsItemDto CreateNews(NewsItemInputModel news)
         {
