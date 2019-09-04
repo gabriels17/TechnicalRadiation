@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Repositories;
 using TechnicalRadiation.Models.InputModels;
+using AutoMapper;
 
 namespace TechnicalRadiation.Services
 {
@@ -9,9 +10,9 @@ namespace TechnicalRadiation.Services
     {
         private NewsRepo _newsRepo;
 
-        public NewsService()
+        public NewsService(IMapper mapper)
         {
-            _newsRepo = new NewsRepo();
+            _newsRepo = new NewsRepo(mapper);
         }
 
         public List<NewsItemDto> GetAllNews()
