@@ -75,5 +75,12 @@ namespace TechnicalRadiation.Repositories
             entity.PublishDate = news.PublishDate;
             entity.PublishDate = news.PublishDate;
         }
+
+        public void DeleteNewsById(int id)
+        {
+            var entity = FakeDatabase.NewsItems.FirstOrDefault(n => n.Id == id);
+            if (entity == null) { return; /*Throw exception */}
+            FakeDatabase.NewsItems.Remove(entity);
+        }
     }
 }

@@ -47,13 +47,14 @@ namespace TechnicalRadiation.WebApi.Controllers
         // POST /api
         [Route("")]
         [HttpPost]
-        public IActionResult CreateNews([FromBody] NewsItem news)
+        public IActionResult CreateNews([FromBody] NewsItemInputModel news)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Model is not properly formatted.");
             }
-            return CreatedAtAction("GetNewsById", new {}, null);
+            var entity = _newsService.CreateNews(news);
+            return CreatedAtAction("GetNewsById", new { id = entity.Id }, null);
         }
 
         // PUT api/news/5
@@ -61,16 +62,19 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpPut]
         public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
         {
-            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted.");}
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
             _newsService.UpdateNewsById(news, id);
             return NoContent();
         }
 
         // DELETE api/news/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("{id:int}")]
+        [HttpDelete]
+        public IActionResult DeleteNewsById(int id)
         {
-            
+            _newsService.DeleteNewsById(id);
+            return NoContent();
         }
     }
 }
+
