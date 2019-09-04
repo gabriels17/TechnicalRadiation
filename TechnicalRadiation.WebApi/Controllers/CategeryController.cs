@@ -22,17 +22,17 @@ namespace TechnicalRadiation.WebApi.Controllers
         }
 
         // GET /api/categories/5
-        // [HttpGet]
-        // [Route("{id:int}", Name = "GetCategoryById")]
-        // public ActionResult<string> GetCategoryById(int id)
-        // {
-        //     var category = _categoryService.GetCategoryById(id);
-        //     if (category == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return Ok(category);
-        // }
+        [HttpGet]
+        [Route("categories/{id:int}", Name = "GetCategoryById")]
+        public ActionResult<string> GetCategoryById(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
+        }
 
         // POST /api
         /*[Route("")]
