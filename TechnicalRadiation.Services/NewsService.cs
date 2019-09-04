@@ -35,5 +35,10 @@ namespace TechnicalRadiation.Services
         {
             _newsRepo.UpdateNewsById(news, id);
         }
+
+        public void DeleteNewsById(int id)
+        {
+            _newsRepo.DeleteNewsById(id);
+        }
     }
 }
