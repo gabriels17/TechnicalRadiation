@@ -18,9 +18,9 @@ namespace TechnicalRadiation.WebApi.Controllers
             return _categoryRepo.GetAllCategories();
         }
 
-        /*public CategoryDto GetCategoryById(int id)
+        public CategoryDetailDto GetCategoryById(int id)
         {
-            throw new NotImplementedException();
-        }*/
+            return _categoryRepo.GetCategoryById(id);
+        }
     }
 }
