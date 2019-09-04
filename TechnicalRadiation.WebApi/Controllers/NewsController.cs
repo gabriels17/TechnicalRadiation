@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using TechnicalRadiation.Models.Entities;
+using TechnicalRadiation.Models;
+using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
+using TechnicalRadiation.Models.InputModels;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -21,9 +25,10 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpGet]
         [Route("")]
         // TODO: Change return value to NewsItemInputModel
-        public IActionResult GetAllNews()
+        public IActionResult GetAllNews([FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            var news = _newsService.GetAllNews().GetRange(0, 25);
+            if (pageSize == 0) { pageSize = 25; }
+            var news = new Envelope<NewsItemDto>(pageNumber, pageSize, _newsService.GetAllNews());
             return Ok(news);
         }
 
@@ -33,7 +38,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         public ActionResult<string> GetNewsById(int id)
         {
             var news = _newsService.GetNewsById(id);
-            if(news == null)
+            if (news == null)
             {
                 return NotFound();
             }
@@ -53,15 +58,20 @@ namespace TechnicalRadiation.WebApi.Controllers
         }
 
         // PUT api/news/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Route("{id:int}")]
+        [HttpPut]
+        public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
         {
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted.");}
+            _newsService.UpdateNewsById(news, id);
+            return NoContent();
         }
 
         // DELETE api/news/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            
         }
     }
 }
