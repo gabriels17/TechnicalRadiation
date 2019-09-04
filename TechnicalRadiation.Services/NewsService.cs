@@ -13,7 +13,7 @@ namespace TechnicalRadiation.Services
             _newsRepo = new NewsRepo();
         }
 
-        public List<NewsItemDetailsDto> GetAllNews()
+        public List<NewsItemDto> GetAllNews()
         {
             var news = _newsRepo.GetAllNews();
             return news;

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 
 namespace TechnicalRadiation.WebApi.Controllers
@@ -21,7 +23,16 @@ namespace TechnicalRadiation.WebApi.Controllers
         // TODO: Change return value to NewsItemInputModel
         public IActionResult GetAllNews([FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            var news = _newsService.GetAllNews().GetRange(0, pageSize);
+            List<NewsItemDto> news;
+            
+            if (pageSize == 0) { pageSize = 25; }
+            if (pageNumber == 0) { pageNumber = 1; }
+            try
+            {
+                Console.WriteLine(((pageSize - 1) * pageSize).ToString() + (pageNumber * pageSize).ToString());
+                news = _newsService.GetAllNews().GetRange((pageNumber - 1) * pageSize, pageSize);
+            }
+            catch(ArgumentException ) { return StatusCode(500); }
             return Ok(news);
         }
 
