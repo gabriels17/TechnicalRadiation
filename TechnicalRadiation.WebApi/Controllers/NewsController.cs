@@ -7,6 +7,7 @@ using TechnicalRadiation.Models;
 using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 using TechnicalRadiation.Models.InputModels;
+using AutoMapper;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -16,9 +17,9 @@ namespace TechnicalRadiation.WebApi.Controllers
     {
         private NewsService _newsService;
 
-        public NewsController()
+        public NewsController(IMapper mapper)
         {
-            _newsService = new NewsService();
+            _newsService = new NewsService(mapper);
         }
 
         // GET /api
