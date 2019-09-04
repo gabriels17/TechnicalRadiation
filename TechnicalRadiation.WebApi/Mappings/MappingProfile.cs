@@ -17,6 +17,8 @@ namespace TechnicalRadiation.WebApi.Mappings
                 .ForMember(src => src.ModifiedBy, opt => opt.MapFrom(src => "TechnicalRadiationAdmin"))
                 .ForMember(src => src.CreatedDate, opt => opt.MapFrom(src => DateTime.Now))
                 .ForMember(src => src.ModifiedDate, opt => opt.MapFrom(src => DateTime.Now));
+            CreateMap<NewsItem, NewsItemDetailsDto>();
+            CreateMap<NewsItemInputModel, NewsItemDetailsDto>();
         }
     }
 }
