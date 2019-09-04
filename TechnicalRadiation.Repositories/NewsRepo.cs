@@ -66,7 +66,6 @@ namespace TechnicalRadiation.Repositories
         public void UpdateNewsById(NewsItemInputModel news, int id)
         {
             var entity = FakeDatabase.NewsItems.FirstOrDefault(n => n.Id == id);
-            if(entity == null){return; /*henda villu baeta vid seinna*/}
 
             //Update properties
             entity.Title = news.Title;
