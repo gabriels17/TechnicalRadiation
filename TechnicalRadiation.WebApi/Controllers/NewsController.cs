@@ -29,7 +29,6 @@ namespace TechnicalRadiation.WebApi.Controllers
             if (pageNumber == 0) { pageNumber = 1; }
             try
             {
-                Console.WriteLine(((pageSize - 1) * pageSize).ToString() + (pageNumber * pageSize).ToString());
                 news = _newsService.GetAllNews().GetRange((pageNumber - 1) * pageSize, pageSize);
             }
             catch(ArgumentException ) { return StatusCode(500); }
