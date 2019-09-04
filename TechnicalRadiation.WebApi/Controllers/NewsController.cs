@@ -48,13 +48,14 @@ namespace TechnicalRadiation.WebApi.Controllers
         // POST /api
         [Route("")]
         [HttpPost]
-        public IActionResult CreateNews([FromBody] NewsItem news)
+        public IActionResult CreateNews([FromBody] NewsItemInputModel news)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest("Model is not properly formatted.");
             }
-            return CreatedAtAction("GetNewsById", new {}, null);
+            var entity = _newsService.CreateNews(news);
+            return CreatedAtAction("GetNewsById", new { id = entity.Id }, null);
         }
 
         // PUT api/news/5
