@@ -20,6 +20,8 @@ namespace TechnicalRadiation.WebApi.Mappings
             CreateMap<NewsItemInputModel, NewsItemDetailsDto>();
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryDetailDto>();
+            CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorDetailDto>();
         }
     }
 }
