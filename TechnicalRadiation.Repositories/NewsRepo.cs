@@ -18,38 +18,16 @@ namespace TechnicalRadiation.Repositories
         public List<NewsItemDto> GetAllNews()
         {
             return _mapper.Map<List<NewsItemDto>>(FakeDatabase.NewsItems);
-            // var news = (from n in FakeDatabase.NewsItems
-            //             orderby n.PublishDate descending
-            //             select new NewsItemDto
-            //             {
-            //                 Id = n.Id,
-            //                 Title = n.Title,
-            //                 ImgSource = n.ImgSource,
-            //                 ShortDescription = n.ShortDescription
-            //             }).ToList();
-            // return news;
         }
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
             return _mapper.Map<NewsItemDetailsDto>(FakeDatabase.NewsItems.Where(n => n.Id == id).SingleOrDefault());
-            // var news = (from n in FakeDatabase.NewsItems
-            //             where n.Id == id
-            //             select new NewsItemDetailsDto
-            //             {
-            //                 Id = n.Id,
-            //                 Title = n.Title,
-            //                 ImgSource = n.ImgSource,
-            //                 ShortDescription = n.ShortDescription,
-            //                 LongDescription = n.LongDescription,
-            //                 PublishDate = n.PublishDate
-            //             }).SingleOrDefault();
-
-            // return news;
         }
         public NewsItemDto CreateNews(NewsItemInputModel news)
         {
             var nextId = FakeDatabase.NewsItems.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;
+            //var entity = _mapper.Map<NewsItem>(news);
             var entity = new NewsItem
             {
                 Id = nextId,
@@ -63,6 +41,7 @@ namespace TechnicalRadiation.Repositories
                 ModifiedDate = DateTime.Now
             };
             FakeDatabase.NewsItems.Add(entity);
+            // return _mapper.Map<NewsItemDto>(entity);
             return new NewsItemDto
             {
                 Id = entity.Id,
