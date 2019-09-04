@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using TechnicalRadiation.Models;
+using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 using TechnicalRadiation.Models.InputModels;
 
@@ -22,7 +25,8 @@ namespace TechnicalRadiation.WebApi.Controllers
         // TODO: Change return value to NewsItemInputModel
         public IActionResult GetAllNews([FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            var news = _newsService.GetAllNews().GetRange(0, pageSize);
+            if (pageSize == 0) { pageSize = 25; }
+            var news = new Envelope<NewsItemDto>(pageNumber, pageSize, _newsService.GetAllNews());
             return Ok(news);
         }
 
