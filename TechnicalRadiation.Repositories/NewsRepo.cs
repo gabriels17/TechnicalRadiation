@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TechnicalRadiation.Models.DTOs;
+using TechnicalRadiation.Models.InputModels;
 
 namespace TechnicalRadiation.Repositories
 {
@@ -37,6 +38,21 @@ namespace TechnicalRadiation.Repositories
                         }).SingleOrDefault();
 
             return news;
+        }
+
+        public void UpdateNewsById(NewsItemInputModel news, int id)
+        {
+            var entity = FakeDatabase.NewsItems.FirstOrDefault(n => n.Id == id);
+            if(entity == null){return; /*henda villu baeta vid seinna*/}
+
+            //Update properties
+            entity.Title = news.Title;
+            entity.ImgSource = news.ImgSource;
+            entity.ShortDescription = news.ShortDescription;
+            entity.LongDescription = news.LongDescription;
+            entity.PublishDate = news.PublishDate;
+            entity.PublishDate = news.PublishDate;
+
         }
     }
 }
