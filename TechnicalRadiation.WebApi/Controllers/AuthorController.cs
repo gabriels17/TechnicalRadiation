@@ -24,7 +24,7 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         // GET /api/authors
         [HttpGet]
-        [Route("{}")]
+        [Route("authors")]
         public IActionResult GetAllAuthors()
         {
             var authors = _authorService.GetAllAuthors();
