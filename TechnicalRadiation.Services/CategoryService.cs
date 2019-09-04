@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using AutoMapper;
 using TechnicalRadiation.Models.DTOs;
 
 namespace TechnicalRadiation.WebApi.Controllers
@@ -8,9 +8,9 @@ namespace TechnicalRadiation.WebApi.Controllers
     {
         private CategoryRepo _categoryRepo;
 
-        public CategoryService()
+        public CategoryService(IMapper mapper)
         {
-            _categoryRepo = new CategoryRepo();
+            _categoryRepo = new CategoryRepo(mapper);
         }
 
         public List<CategoryDto> GetAllCategories()

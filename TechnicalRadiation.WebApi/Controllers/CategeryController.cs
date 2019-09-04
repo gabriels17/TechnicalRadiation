@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnicalRadiation.WebApi.Controllers
@@ -7,9 +8,9 @@ namespace TechnicalRadiation.WebApi.Controllers
     {
         private CategoryService _categoryService;
 
-        public CategoryController()
+        public CategoryController(IMapper mapper)
         {
-            _categoryService = new CategoryService();
+            _categoryService = new CategoryService(mapper);
         }
 
         // GET /api/categories

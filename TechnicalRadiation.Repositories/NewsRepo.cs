@@ -11,10 +11,12 @@ namespace TechnicalRadiation.Repositories
     public class NewsRepo
     {
         private IMapper _mapper;
+
         public NewsRepo(IMapper mapper)
         {
             _mapper = mapper;
         }
+        
         public List<NewsItemDto> GetAllNews()
         {
             return _mapper.Map<List<NewsItemDto>>(FakeDatabase.NewsItems);
