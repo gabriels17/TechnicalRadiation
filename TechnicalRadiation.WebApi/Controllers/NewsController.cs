@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +34,7 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         // GET /api/5
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "GetNewsById")]
         public ActionResult<string> GetNewsById(int id)
         {
             var news = _newsService.GetNewsById(id);
@@ -48,13 +48,13 @@ namespace TechnicalRadiation.WebApi.Controllers
         // POST /api
         [Route("")]
         [HttpPost]
-        public IActionResult CreateNew([FromBody] NewsItem news)
+        public IActionResult CreateNews([FromBody] NewsItem news)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is not properly formatted.");
             }
-            return Created("Created", news);
+            return CreatedAtAction("GetNewsById", new {}, null);
         }
 
         // PUT api/news/5
