@@ -66,7 +66,7 @@ namespace TechnicalRadiation.Repositories
         public void UpdateNewsById(NewsItemInputModel news, int id)
         {
             var entity = FakeDatabase.NewsItems.FirstOrDefault(n => n.Id == id);
-            if(entity == null){return; /*henda villu baeta vid seinna*/}
+            if (entity == null) { return; /*henda villu baeta vid seinna*/}
 
             //Update properties
             entity.Title = news.Title;
@@ -75,6 +75,13 @@ namespace TechnicalRadiation.Repositories
             entity.LongDescription = news.LongDescription;
             entity.PublishDate = news.PublishDate;
             entity.PublishDate = news.PublishDate;
+        }
+
+        public void DeleteNewsById(int id)
+        {
+            var entity = FakeDatabase.NewsItems.FirstOrDefault(n => n.Id == id);
+            if (entity == null) { return; /*Throw exception */}
+            FakeDatabase.NewsItems.Remove(entity);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateNew([FromBody] NewsItem news)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Model is not properly formatted.");
             }
@@ -62,16 +62,19 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpPut]
         public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
         {
-            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted.");}
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
             _newsService.UpdateNewsById(news, id);
             return NoContent();
         }
 
         // DELETE api/news/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("{id:int}")]
+        [HttpDelete]
+        public IActionResult DeleteNewsById(int id)
         {
-            
+            _newsService.DeleteNewsById(id);
+            return NoContent();
         }
     }
 }
+
