@@ -37,4 +37,21 @@ public static class FakeDatabase {
         new NewsItem { Id = 29, Title = "Bla", ImgSource = "", ShortDescription = "Once upon a time...", LongDescription = "Once upon a time there lived a wizard", PublishDate = new DateTime(), ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = new DateTime(), ModifiedDate = new DateTime() },
         new NewsItem { Id = 30, Title = "Bla", ImgSource = "", ShortDescription = "Once upon a time...", LongDescription = "Once upon a time there lived a wizard", PublishDate = new DateTime(), ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = new DateTime(), ModifiedDate = new DateTime() }
     };
+
+    public static List<Category> Categories = new List<Category>()
+    {
+        new Category { Id = 1, Name = "Business", Slug = "business", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Category { Id = 1, Name = "Sports", Slug = "sports", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Category { Id = 1, Name = "Health", Slug = "health", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Category { Id = 1, Name = "Gadgets", Slug = "gadgets", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+    };
+
+    public static List<Author> Authors = new List<Author>()
+    {
+        new Author { Id = 1, Name = "Brandon Sanderson", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Author { Id = 2, Name = "Stephen King", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Author { Id = 3, Name = "Patrick Rothfuss", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Author { Id = 4, Name = "Terry Pratchett", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+        new Author { Id = 5, Name = "Enid Blyton", ProfileImgSource = "", Bio = "", ModifiedBy = "TechnicalRadiationAdmin", CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }      
+    };
 }
