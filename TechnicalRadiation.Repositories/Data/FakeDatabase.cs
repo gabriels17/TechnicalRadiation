@@ -65,5 +65,15 @@ public static class FakeDatabase {
         new NewsItemCategories { CategoryId = 3, NewsItemId = 28 },
     };
 
+    public static List<NewsItemAuthors> NewsItemAuthors = new List<NewsItemAuthors>()
+    {
+        new NewsItemAuthors { AuthorId = 1, NewsItemId = 1 },
+        new NewsItemAuthors { AuthorId = 1, NewsItemId = 2 },
+        new NewsItemAuthors { AuthorId = 2, NewsItemId = 3 },
+        new NewsItemAuthors { AuthorId = 2, NewsItemId = 4 },
+        new NewsItemAuthors { AuthorId = 2, NewsItemId = 5 },
+        new NewsItemAuthors { AuthorId = 3, NewsItemId = 28 },
+    };
+
     public static string AuthToken = "Bearer 2fc8813c-be65-4dba-8b91-6e73d928ed56";
 }

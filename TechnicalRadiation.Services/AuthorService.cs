@@ -3,6 +3,7 @@ using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Repositories;
 using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
+using System;
 
 namespace TechnicalRadiation.Services
 {
@@ -15,7 +16,7 @@ namespace TechnicalRadiation.Services
             _authorRepo = new AuthorRepo(mapper);
         }
 
-        public IEnumerable<AuthorDto> GetAllAuthors()
+        public List<AuthorDto> GetAllAuthors()
         {
             var author = _authorRepo.GetAllAuthors();
             return author;
@@ -25,6 +26,12 @@ namespace TechnicalRadiation.Services
         {
             var author = _authorRepo.GetAuthorById(id);
             return author;
+        }
+
+        public List<NewsItemDto> GetNewsItemsByAuthor(int id)
+        {
+            var newsItems = _authorRepo.GetNewsItemsByAuthor(id);
+            return newsItems;
         }
     }
 }

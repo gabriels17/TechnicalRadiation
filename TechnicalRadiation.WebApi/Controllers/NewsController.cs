@@ -31,7 +31,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         // GET /api/5
         [HttpGet]
         [Route("{id:int}", Name = "GetNewsById")]
-        public ActionResult<string> GetNewsById(int id)
+        public IActionResult GetNewsById(int id)
         {
             var news = _newsService.GetNewsById(id);
             if (news == null)

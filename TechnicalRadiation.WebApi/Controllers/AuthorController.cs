@@ -34,7 +34,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         // GET /api/authors/5
         [HttpGet]
         [Route("authors/{id:int}", Name = "GetAuthorById")]
-        public ActionResult<string> GetAuthorById(int id)
+        public IActionResult GetAuthorById(int id)
         {
             var author = _authorService.GetAuthorById(id);
             if (author == null)
@@ -42,6 +42,18 @@ namespace TechnicalRadiation.WebApi.Controllers
                 return NotFound();
             }
             return Ok(author);
+        }
+
+        [HttpGet]
+        [Route("authors/{id:int}/newsItems")]
+        public IActionResult GetNewsItemsByAuthor(int id)
+        {
+            var newsItems = _authorService.GetNewsItemsByAuthor(id);
+            if(newsItems.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(newsItems);
         }
 /*
         // POST /api
