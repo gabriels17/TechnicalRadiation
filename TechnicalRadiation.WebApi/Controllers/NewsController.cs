@@ -13,7 +13,7 @@ namespace TechnicalRadiation.WebApi.Controllers
 {
     [Route("api/")]
     [ApiController]
-    public class NewsController : Controller
+    public class NewsController : ControllerBase
     {
         private NewsService _newsService;
 
@@ -25,7 +25,6 @@ namespace TechnicalRadiation.WebApi.Controllers
         // GET /api
         [HttpGet]
         [Route("")]
-        // TODO: Change return value to NewsItemInputModel
         public IActionResult GetAllNews([FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
             if (pageSize == 0) { pageSize = 25; }
