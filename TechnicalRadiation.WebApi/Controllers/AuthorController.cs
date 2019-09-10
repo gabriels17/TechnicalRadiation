@@ -37,47 +37,40 @@ namespace TechnicalRadiation.WebApi.Controllers
         public IActionResult GetAuthorById(int id)
         {
             var author = _authorService.GetAuthorById(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
+            if (author == null) { return NotFound(); }
             return Ok(author);
         }
 
+        // GET /api/authors/5/newsItems
         [HttpGet]
         [Route("authors/{id:int}/newsItems")]
         public IActionResult GetNewsItemsByAuthor(int id)
         {
             var newsItems = _authorService.GetNewsItemsByAuthor(id);
-            if(newsItems.Count == 0)
-            {
-                return NotFound();
-            }
+            if(newsItems.Count == 0) { return NotFound(); }
             return Ok(newsItems);
         }
-/*
-        // POST /api
-        [Route("")]
-        [HttpPost]
-        public IActionResult CreateNews([FromBody] NewsItemInputModel news)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Model is not properly formatted.");
-            }
-            var entity = _newsService.CreateNews(news);
-            return CreatedAtAction("GetNewsById", new { id = entity.Id }, null);
-        }
 
-        // PUT api/news/5
-        [Route("{id:int}")]
-        [HttpPut]
-        public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
+        // POST /api/authors
+        [Route("authors")]
+        [HttpPost]
+        public IActionResult CreateAuthor([FromBody] AuthorInputModel author)
         {
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
-            _newsService.UpdateNewsById(news, id);
+            var entity = _authorService.CreateAuthor(author);
+            return CreatedAtAction("GetAuthorById", new { id = entity.Id }, null);
+        }
+
+        //PUT api/authors/5
+        [Route("authors/{id:int}")]
+        [HttpPut]
+        public IActionResult UpdateAuthorById([FromBody] AuthorInputModel author, int id)
+        {
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
+            _authorService.UpdateAuthorById(author, id);
             return NoContent();
         }
+/*
 
         // DELETE api/news/5
         [Route("{id:int}")]

@@ -47,5 +47,39 @@ namespace TechnicalRadiation.Repositories
             }
             return NewsItemsDto;
         }
+
+        public AuthorDto CreateAuthor(AuthorInputModel author)
+        {
+            var nextId = FakeDatabase.Authors.OrderByDescending(a => a.Id).FirstOrDefault().Id + 1;
+            var entity = new Author
+            {
+                Id = nextId,
+                Name = author.Name,
+                ProfileImgSource = author.ProfileImgSource,
+                Bio = author.Bio,
+                ModifiedBy = "TechnicalRadiationAdmin",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+            FakeDatabase.Authors.Add(entity);
+            return new AuthorDto
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
+
+        public void UpdateAuthorById(AuthorInputModel author, int id)
+        {
+            var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
+            if (entity == null) { return; /* Throw some exception */}
+            
+            // Update properties
+            entity.Name = author.Name;
+            entity.ProfileImgSource = author.ProfileImgSource;
+            entity.Bio = author.Bio;
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedBy = "TechnicalRadiationAdmin";
+        }
     }
 }
