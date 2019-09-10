@@ -73,7 +73,7 @@ namespace TechnicalRadiation.Repositories
         {
             var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
             if (entity == null) { return; /* Throw some exception */}
-            
+
             // Update properties
             entity.Name = author.Name;
             entity.ProfileImgSource = author.ProfileImgSource;
@@ -81,5 +81,13 @@ namespace TechnicalRadiation.Repositories
             entity.ModifiedDate = DateTime.Now;
             entity.ModifiedBy = "TechnicalRadiationAdmin";
         }
+
+        public void DeleteAuthorById(int id)
+        {
+            var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
+            if(entity == null) { return; /* Throw some exception */}
+            FakeDatabase.Authors.Remove(entity);
+        }
+
     }
 }

@@ -43,5 +43,10 @@ namespace TechnicalRadiation.Services
         {
             _authorRepo.UpdateAuthorById(author, id);
         }
+
+        public void DeleteAuthorById(int id)
+        {
+            _authorRepo.DeleteAuthorById(id);
+        }
     }
 }

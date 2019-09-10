@@ -61,7 +61,7 @@ namespace TechnicalRadiation.WebApi.Controllers
             return CreatedAtAction("GetAuthorById", new { id = entity.Id }, null);
         }
 
-        //PUT api/authors/5
+        // PUT api/authors/5
         [Route("authors/{id:int}")]
         [HttpPut]
         public IActionResult UpdateAuthorById([FromBody] AuthorInputModel author, int id)
@@ -70,16 +70,14 @@ namespace TechnicalRadiation.WebApi.Controllers
             _authorService.UpdateAuthorById(author, id);
             return NoContent();
         }
-/*
 
-        // DELETE api/news/5
-        [Route("{id:int}")]
-        [HttpDelete]
-        public IActionResult DeleteNewsById(int id)
+        // DELETE api/authors/5
+        [Route("authors/{id:int}")]
+        public IActionResult DeleteAuthorById(int id)
         {
-            _newsService.DeleteNewsById(id);
+            _authorService.DeleteAuthorById(id);
             return NoContent();
-        }*/
+        }
     }
 }
 
