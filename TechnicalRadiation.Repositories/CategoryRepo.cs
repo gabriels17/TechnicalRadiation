@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using TechnicalRadiation.Models.DTOs;
+using TechnicalRadiation.Models.Entities;
+using TechnicalRadiation.Models.InputModels;
 
 namespace TechnicalRadiation.Repositories
 {
@@ -43,6 +46,46 @@ namespace TechnicalRadiation.Repositories
             var categoryDto = _mapper.Map<CategoryDetailDto>(category);
             categoryDto.NumberOfNewsItems = GetNumberOfNewsItemsByCategoryId(id);
             return categoryDto;
+        }
+
+        public CategoryDto CreateCategory(CategoryInputModel category)
+        {
+            var nextId = FakeDatabase.Categories.OrderByDescending(c => c.Id).FirstOrDefault().Id + 1;
+            
+            var entity = new Category
+            {
+                Id = nextId,
+                Name = category.Name,
+                ModifiedBy = "TechnicalRadiationAdmin",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+            var slug = entity.Name.ToLower().Replace(' ', '-');
+            entity.Slug = slug;
+            FakeDatabase.Categories.Add(entity);
+            return new CategoryDto
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Slug = entity.Slug
+            };
+        }
+        public void UpdateCategoryById(CategoryInputModel category, int id)
+        {
+            var entity = FakeDatabase.Categories.FirstOrDefault(n => n.Id == id);
+
+            // Update properties
+            entity.Name = category.Name;
+            entity.Slug = category.Name.ToLower().Replace(' ', '-');
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedBy = "TechnicalRadiationAdmin";
+        }
+
+        public void DeleteCategoryById(int id)
+        {
+            var entity = FakeDatabase.Categories.FirstOrDefault(c => c.Id == id);
+            if (entity == null) { return; /* Throw some exception */}
+            FakeDatabase.Categories.Remove(entity);
         }
     }
 }

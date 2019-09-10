@@ -1,5 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TechnicalRadiation.Models.InputModels;
+using TechnicalRadiation.WebApi.Attributes;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -35,33 +37,35 @@ namespace TechnicalRadiation.WebApi.Controllers
             return Ok(category);
         }
 
-        // POST /api
-        /*[Route("")]
+        // POST /api/categories
+        [Route("categories")]
         [HttpPost]
+        [AuthorizeBearer]
         public IActionResult CreateCategory([FromBody] CategoryInputModel category)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest("Model is not properly formatted.");
-            }
-            return CreatedAtAction("GetCategoryById", new {}, null);
-        }*/
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
+            var entity = _categoryService.CreateCategory(category);
+            return CreatedAtAction("GetCategoryById", new { id = entity.Id }, null);
+        }
 
-        // PUT api/category/5
-        /*[Route("{id:int}")]
+        // PUT /api/categories/5
+        
+        [Route("categories/{id:int}")]
         [HttpPut]
-        public IActionResult UpdateCategoryById([FromBody] NewsItemInputModel category, int id)
+        [AuthorizeBearer]
+        public IActionResult UpdateCategoryById([FromBody] CategoryInputModel category, int id)
         {
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted.");}
             _categoryService.UpdateCategoryById(category, id);
             return NoContent();
-        }*/
+        }
 
         // DELETE api/category/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            
+            _categoryService.DeleteCategoryById(id);
+            return NoContent();
         }
     }
 }
