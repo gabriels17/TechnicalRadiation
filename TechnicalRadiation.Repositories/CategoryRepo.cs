@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using TechnicalRadiation.Models.DTOs;
 
-namespace TechnicalRadiation.WebApi.Controllers
+namespace TechnicalRadiation.Repositories
 {
     public class CategoryRepo
     {

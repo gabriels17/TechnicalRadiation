@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using TechnicalRadiation.Models.DTOs;
+using TechnicalRadiation.Repositories;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
