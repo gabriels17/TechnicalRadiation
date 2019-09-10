@@ -74,6 +74,4 @@ public static class FakeDatabase {
         new NewsItemAuthors { AuthorId = 2, NewsItemId = 5 },
         new NewsItemAuthors { AuthorId = 3, NewsItemId = 28 },
     };
-
-    public static string AuthToken = "Bearer 2fc8813c-be65-4dba-8b91-6e73d928ed56";
 }

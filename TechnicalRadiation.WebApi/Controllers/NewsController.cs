@@ -4,6 +4,8 @@ using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using TechnicalRadiation.WebApi.Attributes;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -43,10 +45,10 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         // POST /api
         [Route("")]
+        [AuthorizeBearer]
         [HttpPost]
         public IActionResult CreateNews([FromBody] NewsItemInputModel news)
         {
-            if (Request.Headers["Authorization"] != FakeDatabase.AuthToken) { return Unauthorized(); }
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
             var entity = _newsService.CreateNews(news);
             return CreatedAtAction("GetNewsById", new { id = entity.Id }, null);
@@ -55,9 +57,9 @@ namespace TechnicalRadiation.WebApi.Controllers
         // PUT api/news/5
         [Route("{id:int}")]
         [HttpPut]
+        [AuthorizeBearer]
         public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
         {
-            if (Request.Headers["Authorization"] != FakeDatabase.AuthToken) { return Unauthorized(); }
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
             _newsService.UpdateNewsById(news, id);
             return NoContent();
@@ -66,9 +68,9 @@ namespace TechnicalRadiation.WebApi.Controllers
         // DELETE api/news/5
         [Route("{id:int}")]
         [HttpDelete]
+        [AuthorizeBearer]
         public IActionResult DeleteNewsById(int id)
         {
-            if (Request.Headers["Authorization"] != FakeDatabase.AuthToken) { return Unauthorized(); }
             _newsService.DeleteNewsById(id);
             return NoContent();
         }
