@@ -62,7 +62,8 @@ namespace TechnicalRadiation.Repositories
             entity.ShortDescription = news.ShortDescription;
             entity.LongDescription = news.LongDescription;
             entity.PublishDate = news.PublishDate;
-            entity.PublishDate = news.PublishDate;
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedBy = "TechnicalRadiationAdmin";
         }
 
         public void DeleteNewsById(int id)

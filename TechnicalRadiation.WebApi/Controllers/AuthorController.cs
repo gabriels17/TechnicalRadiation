@@ -37,10 +37,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         public IActionResult GetAuthorById(int id)
         {
             var author = _authorService.GetAuthorById(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
+            if (author == null) { return NotFound(); }
             return Ok(author);
         }
 
@@ -50,10 +47,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         public IActionResult GetNewsItemsByAuthor(int id)
         {
             var newsItems = _authorService.GetNewsItemsByAuthor(id);
-            if(newsItems.Count == 0)
-            {
-                return NotFound();
-            }
+            if(newsItems.Count == 0) { return NotFound(); }
             return Ok(newsItems);
         }
 
@@ -62,24 +56,21 @@ namespace TechnicalRadiation.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateAuthor([FromBody] AuthorInputModel author)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Model is not properly formatted.");
-            }
+            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
             var entity = _authorService.CreateAuthor(author);
             return CreatedAtAction("GetAuthorById", new { id = entity.Id }, null);
         }
 
-/*
-        // PUT api/news/5
-        [Route("{id:int}")]
+        //PUT api/authors/5
+        [Route("authors/{id:int}")]
         [HttpPut]
-        public IActionResult UpdateNewsById([FromBody] NewsItemInputModel news, int id)
+        public IActionResult UpdateAuthorById([FromBody] AuthorInputModel author, int id)
         {
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
-            _newsService.UpdateNewsById(news, id);
+            _authorService.UpdateAuthorById(author, id);
             return NoContent();
         }
+/*
 
         // DELETE api/news/5
         [Route("{id:int}")]

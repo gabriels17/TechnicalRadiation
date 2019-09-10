@@ -36,9 +36,21 @@ namespace TechnicalRadiation.Repositories
             return newsItems;
         }
 
+        public List<NewsItemDto> GetNewsItemsByAuthor(int id)
+        {
+            List<NewsItemDto> NewsItemsDto = new List<NewsItemDto>();
+            var newsItems = GetNewsItemsByAuthorId(id);
+            foreach (var item in newsItems)
+            {
+                var newsItemDto = _mapper.Map<NewsItemDto>(item);
+                NewsItemsDto.Add(newsItemDto);    
+            }
+            return NewsItemsDto;
+        }
+
         public AuthorDto CreateAuthor(AuthorInputModel author)
         {
-            var nextId = FakeDatabase.Authors.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;
+            var nextId = FakeDatabase.Authors.OrderByDescending(a => a.Id).FirstOrDefault().Id + 1;
             var entity = new Author
             {
                 Id = nextId,
@@ -57,16 +69,17 @@ namespace TechnicalRadiation.Repositories
             };
         }
 
-        public List<NewsItemDto> GetNewsItemsByAuthor(int id)
+        public void UpdateAuthorById(AuthorInputModel author, int id)
         {
-            List<NewsItemDto> NewsItemsDto = new List<NewsItemDto>();
-            var newsItems = GetNewsItemsByAuthorId(id);
-            foreach (var item in newsItems)
-            {
-                var newsItemDto = _mapper.Map<NewsItemDto>(item);
-                NewsItemsDto.Add(newsItemDto);    
-            }
-            return NewsItemsDto;
+            var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
+            if (entity == null) { return; /* Throw some exception */}
+            
+            // Update properties
+            entity.Name = author.Name;
+            entity.ProfileImgSource = author.ProfileImgSource;
+            entity.Bio = author.Bio;
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedBy = "TechnicalRadiationAdmin";
         }
     }
 }
