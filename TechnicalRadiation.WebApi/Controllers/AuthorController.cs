@@ -44,6 +44,7 @@ namespace TechnicalRadiation.WebApi.Controllers
             return Ok(author);
         }
 
+        // GET /api/authors/5/newsItems
         [HttpGet]
         [Route("authors/{id:int}/newsItems")]
         public IActionResult GetNewsItemsByAuthor(int id)
@@ -55,20 +56,21 @@ namespace TechnicalRadiation.WebApi.Controllers
             }
             return Ok(newsItems);
         }
-/*
-        // POST /api
-        [Route("")]
+
+        // POST /api/authors
+        [Route("authors")]
         [HttpPost]
-        public IActionResult CreateNews([FromBody] NewsItemInputModel news)
+        public IActionResult CreateAuthor([FromBody] AuthorInputModel author)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is not properly formatted.");
             }
-            var entity = _newsService.CreateNews(news);
-            return CreatedAtAction("GetNewsById", new { id = entity.Id }, null);
+            var entity = _authorService.CreateAuthor(author);
+            return CreatedAtAction("GetAuthorById", new { id = entity.Id }, null);
         }
 
+/*
         // PUT api/news/5
         [Route("{id:int}")]
         [HttpPut]

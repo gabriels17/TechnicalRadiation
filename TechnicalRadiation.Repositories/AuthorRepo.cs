@@ -36,6 +36,27 @@ namespace TechnicalRadiation.Repositories
             return newsItems;
         }
 
+        public AuthorDto CreateAuthor(AuthorInputModel author)
+        {
+            var nextId = FakeDatabase.Authors.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;
+            var entity = new Author
+            {
+                Id = nextId,
+                Name = author.Name,
+                ProfileImgSource = author.ProfileImgSource,
+                Bio = author.Bio,
+                ModifiedBy = "TechnicalRadiationAdmin",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+            FakeDatabase.Authors.Add(entity);
+            return new AuthorDto
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
+
         public List<NewsItemDto> GetNewsItemsByAuthor(int id)
         {
             List<NewsItemDto> NewsItemsDto = new List<NewsItemDto>();

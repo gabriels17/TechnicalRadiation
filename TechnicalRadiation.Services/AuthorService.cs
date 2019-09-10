@@ -33,5 +33,10 @@ namespace TechnicalRadiation.Services
             var newsItems = _authorRepo.GetNewsItemsByAuthor(id);
             return newsItems;
         }
+
+        public AuthorDto CreateAuthor(AuthorInputModel author)
+        {
+            return _authorRepo.CreateAuthor(author);
+        }
     }
 }
