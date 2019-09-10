@@ -8,6 +8,7 @@ using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
+using TechnicalRadiation.WebApi.Attributes;
 
 namespace TechnicalRadiation.WebApi.Controllers
 {
@@ -54,6 +55,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         // POST /api/authors
         [Route("authors")]
         [HttpPost]
+        [AuthorizeBearer]
         public IActionResult CreateAuthor([FromBody] AuthorInputModel author)
         {
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
@@ -64,6 +66,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         // PUT api/authors/5
         [Route("authors/{id:int}")]
         [HttpPut]
+        [AuthorizeBearer]
         public IActionResult UpdateAuthorById([FromBody] AuthorInputModel author, int id)
         {
             if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
@@ -73,6 +76,8 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         // DELETE api/authors/5
         [Route("authors/{id:int}")]
+        [HttpDelete]
+        [AuthorizeBearer]
         public IActionResult DeleteAuthorById(int id)
         {
             _authorService.DeleteAuthorById(id);
