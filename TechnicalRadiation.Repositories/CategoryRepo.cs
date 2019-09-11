@@ -42,10 +42,7 @@ namespace TechnicalRadiation.Repositories
 
         public CategoryDetailDto GetCategoryById(int id)
         {
-            var category = FakeDatabase.Categories.FirstOrDefault(c => c.Id == id);
-            var categoryDto = _mapper.Map<CategoryDetailDto>(category);
-            categoryDto.NumberOfNewsItems = GetNumberOfNewsItemsByCategoryId(id);
-            return categoryDto;
+            return _mapper.Map<CategoryDetailDto>(FakeDatabase.Categories.Where(c => c.Id == id).SingleOrDefault());
         }
 
         public CategoryDto CreateCategory(CategoryInputModel category)

@@ -30,10 +30,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         public ActionResult<string> GetCategoryById(int id)
         {
             var category = _categoryService.GetCategoryById(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            if (category == null) { return NotFound(); }
             return Ok(category);
         }
 
