@@ -34,6 +34,15 @@ namespace TechnicalRadiation.WebApi.Controllers
             return Ok(category);
         }
 
+        [HttpPatch]
+        [Route("categories/{cid:int}/newsItems/{nid:int}")]
+        [AuthorizeBearer]
+        public ActionResult<string> LinkNewsItemToCategoryById(int cid, int nid)
+        {
+            _categoryService.LinkNewsItemToCategoryById(cid, nid);
+            return NoContent();
+        }
+
         // POST /api/categories
         [Route("categories")]
         [HttpPost]

@@ -20,17 +20,19 @@ namespace TechnicalRadiation.Repositories
         public List<CategoryDto> GetAllCategories()
         {
             return _mapper.Map<List<CategoryDto>>(FakeDatabase.Categories);
-            // var categories = (from c in FakeDatabase.Categories
-            //                   select new CategoryDto
-            //                   {
-            //                       Id = c.Id,
-            //                       Name = c.Name,
-            //                       Slug = c.Slug
-            //                   }).ToList();
-            //     return categories;
         }
 
-        private int GetNumberOfNewsItemsByCategoryId(int id)
+        public void LinkNewsItemToCategoryById(int cid, int nid)
+        {
+            var link = new NewsItemCategories
+            {
+                CategoryId = cid,
+                NewsItemId = nid
+            };
+            FakeDatabase.NewsItemCategories.Add(link);
+        }
+
+        public int GetNumberOfNewsItemsByCategoryId(int id)
         {
             int NumberOfNewsItems = (from news in FakeDatabase.NewsItems
                                  join newscategories in FakeDatabase.NewsItemCategories on news.Id equals newscategories.NewsItemId

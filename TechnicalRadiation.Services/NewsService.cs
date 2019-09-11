@@ -40,16 +40,16 @@ namespace TechnicalRadiation.Services
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
-            var n = _newsRepo.GetNewsById(id);
-            n.Links.AddReference("self", $"api/{n.Id}");
-            n.Links.AddReference("edit", $"api/{n.Id}");
-            n.Links.AddReference("delete", $"api/{n.Id}");
+            var news = _newsRepo.GetNewsById(id);
+            news.Links.AddReference("self", $"api/{news.Id}");
+            news.Links.AddReference("edit", $"api/{news.Id}");
+            news.Links.AddReference("delete", $"api/{news.Id}");
             // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
-            n.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(n.Id)
+            news.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(news.Id)
                 .Select(a => new { href = $"api/authors/{a.Id}" }));
-            n.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(n.Id)
+            news.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(news.Id)
                 .Select(c => new { href = $"api/categories/{c.Id}" }));
-            return n;
+            return news;
         }
 
         public NewsItemDto CreateNews(NewsItemInputModel news)

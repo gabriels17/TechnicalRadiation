@@ -30,7 +30,17 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         public CategoryDetailDto GetCategoryById(int id)
         {
-            return _categoryRepo.GetCategoryById(id);
+            var category = _categoryRepo.GetCategoryById(id);
+            category.NumberOfNewsItems = _categoryRepo.GetNumberOfNewsItemsByCategoryId(id);
+            category.Links.AddReference("edit", $"api/categories/{category.Id}");
+            category.Links.AddReference("self", $"api/categories/{category.Id}");
+            category.Links.AddReference("delete", $"api/categories/{category.Id}");
+            return category;
+        }
+
+        public void LinkNewsItemToCategoryById(int cid, int nid)
+        {
+            _categoryRepo.LinkNewsItemToCategoryById(cid, nid);
         }
 
         public CategoryDto CreateCategory(CategoryInputModel category)
