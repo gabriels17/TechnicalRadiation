@@ -11,13 +11,13 @@ namespace TechnicalRadiation.Services
     public class NewsService
     {
         private NewsRepo _newsRepo;
-        //private AuthorRepo _authorRepo;
+        private AuthorRepo _authorRepo;
         private CategoryRepo _categoryRepo;
 
         public NewsService(IMapper mapper)
         {
             _newsRepo = new NewsRepo(mapper);
-            //_authorRepo = new AuthorRepo(mapper);
+            _authorRepo = new AuthorRepo(mapper);
             _categoryRepo = new CategoryRepo(mapper);
         }
 
