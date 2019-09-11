@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using TechnicalRadiation.Models.DTOs;
+using TechnicalRadiation.Models.Extensions;
 using TechnicalRadiation.Models.InputModels;
 using TechnicalRadiation.Repositories;
 
@@ -17,7 +18,14 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         public List<CategoryDto> GetAllCategories()
         {
-            return _categoryRepo.GetAllCategories();
+            var categories = _categoryRepo.GetAllCategories();
+            foreach (var c in categories)
+            {
+                c.Links.AddReference("edit", $"api/categories/{c.Id}");
+                c.Links.AddReference("self", $"api/categories/{c.Id}");
+                c.Links.AddReference("delete", $"api/categories/{c.Id}");
+            }
+            return categories;
         }
 
         public CategoryDetailDto GetCategoryById(int id)
