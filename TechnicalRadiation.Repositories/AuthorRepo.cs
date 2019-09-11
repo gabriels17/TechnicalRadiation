@@ -48,6 +48,16 @@ namespace TechnicalRadiation.Repositories
             return NewsItemsDto;
         }
 
+        public void LinkNewsItemToAuthorById(int aid, int nid)
+        {
+            var link = new NewsItemAuthors
+            {
+                AuthorId = aid,
+                NewsItemId = nid
+            };
+            FakeDatabase.NewsItemAuthors.Add(link);
+        }
+
         public AuthorDto CreateAuthor(AuthorInputModel author)
         {
             var nextId = FakeDatabase.Authors.OrderByDescending(a => a.Id).FirstOrDefault().Id + 1;

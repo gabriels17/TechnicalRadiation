@@ -58,6 +58,12 @@ namespace TechnicalRadiation.Services
             return author;
         }
 
+        public void LinkNewsItemToAuthorById(int cid, int nid)
+        {
+            _authorRepo.LinkNewsItemToAuthorById(cid, nid);
+        }
+
+
         public List<NewsItemDto> GetNewsItemsByAuthor(int id)
         {
             var newsItems = _authorRepo.GetNewsItemsByAuthor(id);
