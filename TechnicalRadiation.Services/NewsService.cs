@@ -12,13 +12,13 @@ namespace TechnicalRadiation.Services
     {
         private NewsRepo _newsRepo;
         //private AuthorRepo _authorRepo;
-        private CategoryRepo _categoryRepo;
+        //private CategoryRepo _categoryRepo;
 
         public NewsService(IMapper mapper)
         {
             _newsRepo = new NewsRepo(mapper);
             //_authorRepo = new AuthorRepo(mapper);
-            _categoryRepo = new CategoryRepo(mapper);
+            //_categoryRepo = new CategoryRepo(mapper);
         }
 
         public List<NewsItemDto> GetAllNews()
@@ -32,7 +32,7 @@ namespace TechnicalRadiation.Services
                 // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
                 n.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(n.Id)
                     .Select(a => new { href = $"api/authors/{a.Id}" }));
-                n.Links.AddListReference("categories", _categoryRepo.GetAllCategories()
+                n.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(n.Id)
                     .Select(c => new { href = $"api/categories/{c.Id}" }));
             }
             return news;
@@ -47,7 +47,7 @@ namespace TechnicalRadiation.Services
             // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
             n.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(n.Id)
                 .Select(a => new { href = $"api/authors/{a.Id}" }));
-            n.Links.AddListReference("categories", _categoryRepo.GetAllCategories()
+            n.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(n.Id)
                 .Select(c => new { href = $"api/categories/{c.Id}" }));
             return n;
         }

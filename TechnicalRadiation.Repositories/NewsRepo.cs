@@ -26,6 +26,16 @@ namespace TechnicalRadiation.Repositories
                                  select auth).ToList();
             return authors;
         }
+
+        public List<Category> GetCategoriesByNewsItemId(int id)
+        {
+            var categories = (from c in FakeDatabase.Categories
+                                 join newscategories in FakeDatabase.NewsItemCategories on c.Id equals newscategories.CategoryId
+                                 join news in FakeDatabase.NewsItems on newscategories.NewsItemId equals news.Id
+                                 where news.Id == id
+                                 select c).ToList();
+            return categories;
+        }
         
         public List<NewsItemDto> GetAllNews()
         {
