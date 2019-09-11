@@ -16,6 +16,16 @@ namespace TechnicalRadiation.Repositories
         {
             _mapper = mapper;
         }
+
+        public List<Author> GetAuthorsByNewsItemId(int id)
+        {
+            var authors = (from auth in FakeDatabase.Authors
+                                 join newsauthors in FakeDatabase.NewsItemAuthors on auth.Id equals newsauthors.AuthorId
+                                 join news in FakeDatabase.NewsItems on newsauthors.NewsItemId equals news.Id
+                                 where news.Id == id
+                                 select auth).ToList();
+            return authors;
+        }
         
         public List<NewsItemDto> GetAllNews()
         {
@@ -26,6 +36,7 @@ namespace TechnicalRadiation.Repositories
         {
             return _mapper.Map<NewsItemDetailsDto>(FakeDatabase.NewsItems.Where(n => n.Id == id).SingleOrDefault());
         }
+
         public NewsItemDto CreateNews(NewsItemInputModel news)
         {
             var nextId = FakeDatabase.NewsItems.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;

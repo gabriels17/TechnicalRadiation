@@ -11,13 +11,13 @@ namespace TechnicalRadiation.Services
     public class NewsService
     {
         private NewsRepo _newsRepo;
-        private AuthorRepo _authorRepo;
+        //private AuthorRepo _authorRepo;
         private CategoryRepo _categoryRepo;
 
         public NewsService(IMapper mapper)
         {
             _newsRepo = new NewsRepo(mapper);
-            _authorRepo = new AuthorRepo(mapper);
+            //_authorRepo = new AuthorRepo(mapper);
             _categoryRepo = new CategoryRepo(mapper);
         }
 
@@ -30,7 +30,7 @@ namespace TechnicalRadiation.Services
                 n.Links.AddReference("edit", $"api/{n.Id}");
                 n.Links.AddReference("delete", $"api/{n.Id}");
                 // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
-                n.Links.AddListReference("authors", _authorRepo.GetAllAuthors()
+                n.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(n.Id)
                     .Select(a => new { href = $"api/authors/{a.Id}" }));
                 n.Links.AddListReference("categories", _categoryRepo.GetAllCategories()
                     .Select(c => new { href = $"api/categories/{c.Id}" }));
