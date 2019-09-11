@@ -3,7 +3,8 @@ using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Repositories;
 using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
-using System;
+using TechnicalRadiation.Models.Extensions;
+using System.Linq;
 
 namespace TechnicalRadiation.Services
 {
@@ -16,15 +17,44 @@ namespace TechnicalRadiation.Services
             _authorRepo = new AuthorRepo(mapper);
         }
 
+        private AuthorDto AddAuthorDtoLinks(AuthorDto author)
+        {
+            author.Links.AddReference("edit", $"api/authors/{author.Id}");
+            author.Links.AddReference("delete", $"api/authors/{author.Id}");
+            author.Links.AddReference("self", $"api/authors");
+            author.Links.AddReference("newsItems", $"api/authors/{author.Id}/newsItems");
+            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
+            author.Links.AddListReference("newsItemsDetailed", _authorRepo.GetNewsItemsByAuthor(author.Id)
+                .Select(n => new { href = $"api/{n.Id}" }));
+            return author;
+        }
+
+        private AuthorDetailDto AddAuthorDetailDtoLinks(AuthorDetailDto author)
+        {
+            author.Links.AddReference("edit", $"api/authors/{author.Id}");
+            author.Links.AddReference("delete", $"api/authors/{author.Id}");
+            author.Links.AddReference("self", $"api/authors");
+            author.Links.AddReference("newsItems", $"api/authors/{author.Id}/newsItems");
+            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
+            author.Links.AddListReference("newsItemsDetailed", _authorRepo.GetNewsItemsByAuthor(author.Id)
+                .Select(n => new { href = $"api/{n.Id}" }));
+            return author;
+        }
+
         public List<AuthorDto> GetAllAuthors()
         {
-            var author = _authorRepo.GetAllAuthors();
-            return author;
+            var authors = _authorRepo.GetAllAuthors();
+            foreach (var a in authors)
+            {
+                AddAuthorDtoLinks(a);
+            }
+            return authors;
         }
 
         public AuthorDetailDto GetAuthorById(int id)
         {
             var author = _authorRepo.GetAuthorById(id);
+            AddAuthorDetailDtoLinks(author);
             return author;
         }
 
