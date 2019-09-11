@@ -34,17 +34,22 @@ namespace TechnicalRadiation.Services
                     .Select(a => new { href = $"api/authors/{a.Id}" }));
                 n.Links.AddListReference("categories", _categoryRepo.GetAllCategories()
                     .Select(c => new { href = $"api/categories/{c.Id}" }));
-
-                // r.Links.AddListReference("owners", _ownerRepository.GetOwnersByRentalId(r.Id)
-                // .Select(o => new { href = $"/api/rentals/{r.Id}/owners/{o.Id}" }
             }
             return news;
         }
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
-            var news = _newsRepo.GetNewsById(id);
-            return news;
+            var n = _newsRepo.GetNewsById(id);
+            n.Links.AddReference("self", $"api/{n.Id}");
+            n.Links.AddReference("edit", $"api/{n.Id}");
+            n.Links.AddReference("delete", $"api/{n.Id}");
+            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
+            n.Links.AddListReference("authors", _authorRepo.GetAllAuthors()
+                .Select(a => new { href = $"api/authors/{a.Id}" }));
+            n.Links.AddListReference("categories", _categoryRepo.GetAllCategories()
+                .Select(c => new { href = $"api/categories/{c.Id}" }));
+            return n;
         }
 
         public NewsItemDto CreateNews(NewsItemInputModel news)
