@@ -48,7 +48,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         public IActionResult GetNewsItemsByAuthor(int id)
         {
             var newsItems = _authorService.GetNewsItemsByAuthor(id);
-            if(newsItems.Count == 0) { return NotFound(); }
+            if (newsItems.Count == 0) { return NotFound(); }
             return Ok(newsItems);
         }
 
@@ -83,6 +83,16 @@ namespace TechnicalRadiation.WebApi.Controllers
             _authorService.DeleteAuthorById(id);
             return NoContent();
         }
+
+        [HttpPatch]
+        [Route("authors/{cid:int}/newsItems/{nid:int}")]
+        [AuthorizeBearer]
+        public ActionResult<string> LinkNewsItemToAuthorById(int aid, int nid)
+        {
+            _authorService.LinkNewsItemToAuthorById(aid, nid);
+            return NoContent();
+        }
+
     }
 }
 
