@@ -66,7 +66,7 @@ namespace TechnicalRadiation.Repositories
                 Id = nextId,
                 Name = author.Name,
                 ProfileImgSource = author.ProfileImgSource,
-                Bio = author.Bio,
+                Bio = (author.Bio == null) ? "" : author.Bio,
                 ModifiedBy = "TechnicalRadiationAdmin",
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now
@@ -86,7 +86,7 @@ namespace TechnicalRadiation.Repositories
             // Update properties
             entity.Name = author.Name;
             entity.ProfileImgSource = author.ProfileImgSource;
-            entity.Bio = author.Bio;
+            entity.Bio = (author.Bio == null) ? "" : author.Bio;
             entity.ModifiedDate = DateTime.Now;
             entity.ModifiedBy = "TechnicalRadiationAdmin";
         }

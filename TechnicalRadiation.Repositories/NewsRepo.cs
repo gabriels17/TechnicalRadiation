@@ -20,20 +20,20 @@ namespace TechnicalRadiation.Repositories
         public List<Author> GetAuthorsByNewsItemId(int id)
         {
             var authors = (from auth in FakeDatabase.Authors
-                                 join newsauthors in FakeDatabase.NewsItemAuthors on auth.Id equals newsauthors.AuthorId
-                                 join news in FakeDatabase.NewsItems on newsauthors.NewsItemId equals news.Id
-                                 where news.Id == id
-                                 select auth).ToList();
+                           join newsauthors in FakeDatabase.NewsItemAuthors on auth.Id equals newsauthors.AuthorId
+                           join news in FakeDatabase.NewsItems on newsauthors.NewsItemId equals news.Id
+                           where news.Id == id
+                           select auth).ToList();
             return authors;
         }
 
         public List<Category> GetCategoriesByNewsItemId(int id)
         {
             var categories = (from c in FakeDatabase.Categories
-                                 join newscategories in FakeDatabase.NewsItemCategories on c.Id equals newscategories.CategoryId
-                                 join news in FakeDatabase.NewsItems on newscategories.NewsItemId equals news.Id
-                                 where news.Id == id
-                                 select c).ToList();
+                              join newscategories in FakeDatabase.NewsItemCategories on c.Id equals newscategories.CategoryId
+                              join news in FakeDatabase.NewsItems on newscategories.NewsItemId equals news.Id
+                              where news.Id == id
+                              select c).ToList();
             return categories;
         }
         
@@ -50,7 +50,6 @@ namespace TechnicalRadiation.Repositories
         public NewsItemDto CreateNews(NewsItemInputModel news)
         {
             var nextId = FakeDatabase.NewsItems.OrderByDescending(n => n.Id).FirstOrDefault().Id + 1;
-            //var entity = _mapper.Map<NewsItem>(news);
             var entity = new NewsItem
             {
                 Id = nextId,
