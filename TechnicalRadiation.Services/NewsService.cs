@@ -42,9 +42,9 @@ namespace TechnicalRadiation.Services
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
-            if (id < 1) { throw new ArgumentOutOfRangeException(); }
+            if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
             var news = _newsRepo.GetNewsById(id);
-            if (news == null) { throw new ResourceNotFoundException(); }
+            if (news == null) { throw new ResourceNotFoundException($"News item with id {id} was not found"); }
             news.Links.AddReference("self", $"api/{news.Id}");
             news.Links.AddReference("edit", $"api/{news.Id}");
             news.Links.AddReference("delete", $"api/{news.Id}");
