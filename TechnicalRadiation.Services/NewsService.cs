@@ -13,14 +13,10 @@ namespace TechnicalRadiation.Services
     public class NewsService
     {
         private NewsRepo _newsRepo;
-        //private AuthorRepo _authorRepo;
-        //private CategoryRepo _categoryRepo;
 
         public NewsService(IMapper mapper)
         {
             _newsRepo = new NewsRepo(mapper);
-            //_authorRepo = new AuthorRepo(mapper);
-            //_categoryRepo = new CategoryRepo(mapper);
         }
 
         public List<NewsItemDto> GetAllNews()
@@ -31,7 +27,6 @@ namespace TechnicalRadiation.Services
                 n.Links.AddReference("self", $"api/{n.Id}");
                 n.Links.AddReference("edit", $"api/{n.Id}");
                 n.Links.AddReference("delete", $"api/{n.Id}");
-                // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
                 n.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(n.Id)
                     .Select(a => new { href = $"api/authors/{a.Id}" }));
                 n.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(n.Id)
@@ -45,10 +40,10 @@ namespace TechnicalRadiation.Services
             if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
             var news = _newsRepo.GetNewsById(id);
             if (news == null) { throw new ResourceNotFoundException($"News item with id {id} was not found"); }
+
             news.Links.AddReference("self", $"api/{news.Id}");
             news.Links.AddReference("edit", $"api/{news.Id}");
             news.Links.AddReference("delete", $"api/{news.Id}");
-            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
             news.Links.AddListReference("authors", _newsRepo.GetAuthorsByNewsItemId(news.Id)
                 .Select(a => new { href = $"api/authors/{a.Id}" }));
             news.Links.AddListReference("categories", _newsRepo.GetCategoriesByNewsItemId(news.Id)
@@ -62,6 +57,8 @@ namespace TechnicalRadiation.Services
 
         public void UpdateNewsById(NewsItemInputModel news, int id)
         {
+            if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
+            if (FakeDatabase.NewsItems.Count < id) { throw new ResourceNotFoundException($"News item with id {id} was not found"); }
             _newsRepo.UpdateNewsById(news, id);
         }
 
