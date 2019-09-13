@@ -61,6 +61,8 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         public void DeleteCategoryById(int id)
         {
+            if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
+            if (FakeDatabase.Categories.Count < id) { throw new ResourceNotFoundException($"Category with id {id} was not found"); }
             _categoryRepo.DeleteCategoryById(id);
         }
     }

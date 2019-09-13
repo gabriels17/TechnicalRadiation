@@ -110,6 +110,8 @@ namespace TechnicalRadiation.Services
 
         public void DeleteAuthorById(int id)
         {
+            if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
+            if (FakeDatabase.Authors.Count < id) { throw new ResourceNotFoundException($"News item with id {id} was not found"); }
             _authorRepo.DeleteAuthorById(id);
         }
     }

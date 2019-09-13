@@ -67,7 +67,9 @@ namespace TechnicalRadiation.WebApi.Controllers
         }
 
         // DELETE api/category/5
-        [HttpDelete("{id}")]
+        [Route("categories/{id:int}")]
+        [HttpDelete]
+        [AuthorizeBearer]
         public IActionResult Delete(int id)
         {
             _categoryService.DeleteCategoryById(id);
