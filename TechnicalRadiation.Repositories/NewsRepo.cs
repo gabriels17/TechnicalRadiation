@@ -63,7 +63,6 @@ namespace TechnicalRadiation.Repositories
                 ModifiedDate = DateTime.Now
             };
             FakeDatabase.NewsItems.Add(entity);
-            // return _mapper.Map<NewsItemDto>(entity);
             return new NewsItemDto
             {
                 Id = entity.Id,
