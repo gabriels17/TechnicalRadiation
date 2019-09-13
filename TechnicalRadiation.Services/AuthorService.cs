@@ -23,7 +23,6 @@ namespace TechnicalRadiation.Services
             author.Links.AddReference("delete", $"api/authors/{author.Id}");
             author.Links.AddReference("self", $"api/authors");
             author.Links.AddReference("newsItems", $"api/authors/{author.Id}/newsItems");
-            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
             author.Links.AddListReference("newsItemsDetailed", _authorRepo.GetNewsItemsByAuthor(author.Id)
                 .Select(n => new { href = $"api/{n.Id}" }));
             return author;
@@ -35,7 +34,6 @@ namespace TechnicalRadiation.Services
             author.Links.AddReference("delete", $"api/authors/{author.Id}");
             author.Links.AddReference("self", $"api/authors");
             author.Links.AddReference("newsItems", $"api/authors/{author.Id}/newsItems");
-            // TODO: CHANGE VALUES BELOW TO CORRECT VALUES
             author.Links.AddListReference("newsItemsDetailed", _authorRepo.GetNewsItemsByAuthor(author.Id)
                 .Select(n => new { href = $"api/{n.Id}" }));
             return author;
@@ -58,11 +56,10 @@ namespace TechnicalRadiation.Services
             return author;
         }
 
-        public void LinkNewsItemToAuthorById(int cid, int nid)
+        public void LinkNewsItemToAuthorById(int aid, int nid)
         {
-            _authorRepo.LinkNewsItemToAuthorById(cid, nid);
+            _authorRepo.LinkNewsItemToAuthorById(aid, nid);
         }
-
 
         public List<NewsItemDto> GetNewsItemsByAuthor(int id)
         {

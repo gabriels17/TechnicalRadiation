@@ -29,10 +29,10 @@ namespace TechnicalRadiation.Repositories
         private List<NewsItem> GetNewsItemsByAuthorId(int id)
         {
             var newsItems = (from news in FakeDatabase.NewsItems
-                                 join newsauthors in FakeDatabase.NewsItemAuthors on news.Id equals newsauthors.NewsItemId
-                                 join authors in FakeDatabase.Authors on newsauthors.AuthorId equals authors.Id
-                                 where authors.Id == id
-                                 select news).ToList();
+                             join newsauthors in FakeDatabase.NewsItemAuthors on news.Id equals newsauthors.NewsItemId
+                             join authors in FakeDatabase.Authors on newsauthors.AuthorId equals authors.Id
+                             where authors.Id == id
+                             select news).ToList();
             return newsItems;
         }
 
@@ -43,7 +43,7 @@ namespace TechnicalRadiation.Repositories
             foreach (var item in newsItems)
             {
                 var newsItemDto = _mapper.Map<NewsItemDto>(item);
-                NewsItemsDto.Add(newsItemDto);    
+                NewsItemsDto.Add(newsItemDto);
             }
             return NewsItemsDto;
         }
@@ -82,7 +82,6 @@ namespace TechnicalRadiation.Repositories
         public void UpdateAuthorById(AuthorInputModel author, int id)
         {
             var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
-            if (entity == null) { return; /* Throw some exception */}
 
             // Update properties
             entity.Name = author.Name;
@@ -95,7 +94,7 @@ namespace TechnicalRadiation.Repositories
         public void DeleteAuthorById(int id)
         {
             var entity = FakeDatabase.Authors.FirstOrDefault(a => a.Id == id);
-            if(entity == null) { return; /* Throw some exception */}
+            if (entity == null) { return; }
             FakeDatabase.Authors.Remove(entity);
         }
 
