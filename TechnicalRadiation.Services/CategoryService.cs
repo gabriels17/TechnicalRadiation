@@ -12,10 +12,12 @@ namespace TechnicalRadiation.WebApi.Controllers
     public class CategoryService
     {
         private CategoryRepo _categoryRepo;
-
+        private NewsRepo _newsRepo;
+        
         public CategoryService(IMapper mapper)
         {
             _categoryRepo = new CategoryRepo(mapper);
+            _newsRepo = new NewsRepo(mapper);
         }
 
         public List<CategoryDto> GetAllCategories()
@@ -44,6 +46,14 @@ namespace TechnicalRadiation.WebApi.Controllers
 
         public void LinkNewsItemToCategoryById(int cid, int nid)
         {
+            if (cid < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
+            var category = _categoryRepo.GetCategoryById(cid);
+            if (category == null) { throw new ResourceNotFoundException($"Category with id {cid} was not found"); }
+            
+            if (nid < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
+            var newsItem = _newsRepo.GetNewsById(nid);
+            if (newsItem == null) { throw new ResourceNotFoundException($"Category with id {nid} was not found"); }
+            
             _categoryRepo.LinkNewsItemToCategoryById(cid, nid);
         }
 

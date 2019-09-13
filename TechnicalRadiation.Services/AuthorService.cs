@@ -72,7 +72,6 @@ namespace TechnicalRadiation.Services
             var newsItem = _newsRepo.GetNewsById(nid);
             if (newsItem == null) { throw new ResourceNotFoundException($"Category with id {nid} was not found"); }
             
-
             _authorRepo.LinkNewsItemToAuthorById(aid, nid);
         }
 
