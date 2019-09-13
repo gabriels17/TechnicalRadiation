@@ -5,6 +5,8 @@ using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
 using TechnicalRadiation.Models.Extensions;
 using System.Linq;
+using System;
+using TechnicalRadiation.Models.Exceptions;
 
 namespace TechnicalRadiation.Services
 {
@@ -40,7 +42,9 @@ namespace TechnicalRadiation.Services
 
         public NewsItemDetailsDto GetNewsById(int id)
         {
+            if (id < 1) { throw new ArgumentOutOfRangeException(); }
             var news = _newsRepo.GetNewsById(id);
+            if (news == null) { throw new ResourceNotFoundException(); }
             news.Links.AddReference("self", $"api/{news.Id}");
             news.Links.AddReference("edit", $"api/{news.Id}");
             news.Links.AddReference("delete", $"api/{news.Id}");

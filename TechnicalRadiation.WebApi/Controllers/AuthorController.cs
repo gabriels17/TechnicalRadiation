@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using TechnicalRadiation.Models.Entities;
-using TechnicalRadiation.Models;
-using TechnicalRadiation.Models.DTOs;
 using TechnicalRadiation.Services;
 using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
@@ -58,7 +52,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         [AuthorizeBearer]
         public IActionResult CreateAuthor([FromBody] AuthorInputModel author)
         {
-            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
+            if (!ModelState.IsValid) { return StatusCode(412); }
             var entity = _authorService.CreateAuthor(author);
             return CreatedAtAction("GetAuthorById", new { id = entity.Id }, null);
         }
@@ -85,7 +79,7 @@ namespace TechnicalRadiation.WebApi.Controllers
         }
 
         [HttpPatch]
-        [Route("authors/{cid:int}/newsItems/{nid:int}")]
+        [Route("authors/{aid:int}/newsItems/{nid:int}")]
         [AuthorizeBearer]
         public ActionResult<string> LinkNewsItemToAuthorById(int aid, int nid)
         {

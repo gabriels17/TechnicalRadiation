@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TechnicalRadiation.WebApi.Mappings;
+using TechnicalRadiation.WebApi.ExceptionHandlerExtensions;
 
 namespace TechnicalRadiation.WebApi
 {
@@ -36,13 +37,7 @@ namespace TechnicalRadiation.WebApi
             var mapper = mappingProfile.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddMvc();/*(options => {
-                var policy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
-            });*/
-                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +53,7 @@ namespace TechnicalRadiation.WebApi
                 app.UseHsts();
             }
 
+            app.UseGlobalExceptionHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
