@@ -5,6 +5,8 @@ using TechnicalRadiation.Models.InputModels;
 using AutoMapper;
 using TechnicalRadiation.Models.Extensions;
 using System.Linq;
+using System;
+using TechnicalRadiation.Models.Exceptions;
 
 namespace TechnicalRadiation.Services
 {
@@ -53,7 +55,9 @@ namespace TechnicalRadiation.Services
 
         public AuthorDetailDto GetAuthorById(int id)
         {
+            if (id < 1) { throw new ArgumentOutOfRangeException("Id should not be lower than 1"); }
             var author = _authorRepo.GetAuthorById(id);
+            if (author == null) { throw new ResourceNotFoundException($"Author with id {id} was not found"); }
             AddAuthorDetailDtoLinks(author);
             return author;
         }
