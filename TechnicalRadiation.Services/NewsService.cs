@@ -51,7 +51,6 @@ namespace TechnicalRadiation.Services
                 .Select(c => new { href = $"api/categories/{c.Id}" }));
             return news;
         }
-
         public NewsItemDto CreateNews(NewsItemInputModel news)
         {
             return _newsRepo.CreateNews(news);
